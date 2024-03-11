@@ -22,12 +22,7 @@ function View() {
       <div style={{ width: "100%", fontSize: 36, textAlign: "center" }}>
         TTS app for disabled
       </div>
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        style={{ display: "none", width: 640, height: 480 }}
-      />
+      <video ref={videoRef} autoPlay playsInline style={{ display: "none" }} />
       <canvas ref={canvasRef} width={640} height={480} />
     </div>
   );
