@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import extractQRCode from "../QR/model";
 
 function WebcamCapture() {
@@ -17,11 +17,15 @@ function WebcamCapture() {
   };
 
   useEffect(() => {
+    const constraints = {
+      video: {
+        facingMode: { exact: "environment" }, // "environment" 값은 후면 카메라를 의미합니다
+      },
+    };
+
     async function setupWebcam() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
@@ -58,7 +62,7 @@ function WebcamCapture() {
         video.removeEventListener("play", captureFrame);
       }
     };
-  }, [videoRef, canvasRef, setNewDatacode]); // setNewDatacode를 의존성 배열에 추가
+  }, [videoRef, canvasRef, setNewDatacode, handleQRScan]); // setNewDatacode를 의존성 배열에 추가
 
   useEffect(() => {
     if (newDatacode !== null) {

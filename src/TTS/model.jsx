@@ -4,7 +4,7 @@ function speakText(text) {
   utterance.voice = speechSynthesis.getVoices()[0];
   utterance.rate = 1;
 
-  speechSynthesis.speak(utterance);
+  window.speechSynthesis.speak(utterance);
 }
 
 export default speakText;
