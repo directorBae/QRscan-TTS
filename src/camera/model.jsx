@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import extractQRCode from "../QR/model";
-import { convertLinkToSpeech, speakText } from "../TTS/model";
 
 function WebcamCapture() {
   const videoRef = useRef(null);
@@ -67,20 +66,7 @@ function WebcamCapture() {
     }
   }, [newDatacode, handleQRScan]);
 
-  useEffect(() => {
-    if (datacode !== null) {
-      speakText(datacode);
-    }
-  }, [datacode]);
-
-  return (
-    <div>
-      <h2>Webcam Capture</h2>
-      <video ref={videoRef} autoPlay playsInline style={{ display: "none" }} />
-      <canvas ref={canvasRef} width={640} height={480} />
-      <div>{datacode}</div>
-    </div>
-  );
+  return { videoRef, canvasRef, datacode };
 }
 
 export default WebcamCapture;

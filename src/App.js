@@ -1,11 +1,10 @@
-import logo from "./logo.svg";
-import WebcamCapture from "./camera/model";
+import View from "./view";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <WebcamCapture />
+      <View />
     </div>
   );
 }

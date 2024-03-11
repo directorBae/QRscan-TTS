@@ -1,5 +1,3 @@
-import axios from "axios";
-
 function speakText(text) {
   const utterance = new SpeechSynthesisUtterance(text);
 
@@ -9,4 +7,4 @@ function speakText(text) {
   speechSynthesis.speak(utterance);
 }
 
-export { speakText };
+export default speakText;
