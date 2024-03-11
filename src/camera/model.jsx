@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import extractQRCode from "../QR/model";
-import { scrapeWebPage, convertTextToSpeech } from "../TTS/model";
+import { convertLinkToSpeech, speakText } from "../TTS/model";
 
 function WebcamCapture() {
   const videoRef = useRef(null);
@@ -67,21 +67,9 @@ function WebcamCapture() {
     }
   }, [newDatacode, handleQRScan]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (datacode !== null) {
-      try {
-        const content = await scrapeWebPage(url);
-        const audioContent = await convertTextToSpeech(content);
-        console.log("Audio content:", audioContent.length, "bytes");
-
-        const audioBlob = new Blob([audioContent], { type: "audio/mpeg" });
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        const audioElement = new Audio(audioUrl);
-        audioElement.play();
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      speakText(datacode);
     }
   }, [datacode]);
 

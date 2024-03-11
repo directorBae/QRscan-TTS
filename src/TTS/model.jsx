@@ -1,31 +1,12 @@
-import { launch } from "puppeteer";
-import { TextToSpeechClient } from "@google-cloud/text-to-speech";
+import axios from "axios";
 
-async function scrapeWebPage(url) {
-  const browser = await launch();
-  const page = await browser.newPage();
-  await page.goto(url);
+function speakText(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
 
-  const content = await page.evaluate(() => {
-    return document.body.innerText;
-  });
+  utterance.voice = speechSynthesis.getVoices()[0];
+  utterance.rate = 1;
 
-  await browser.close();
-
-  return content;
+  speechSynthesis.speak(utterance);
 }
 
-async function convertTextToSpeech(text) {
-  const client = new TextToSpeechClient();
-
-  const request = {
-    input: { text: text },
-    voice: { languageCode: "en-US", ssmlGender: "NEUTRAL" },
-    audioConfig: { audioEncoding: "MP3" },
-  };
-
-  const [response] = await client.synthesizeSpeech(request);
-  return response.audioContent;
-}
-
-export { scrapeWebPage, convertTextToSpeech };
+export { speakText };
